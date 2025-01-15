@@ -17,13 +17,23 @@ function App() {
       return;
     }
 
-    const allowedTypes = ['application/pdf'];
+    const allowedTypes = [
+      'application/pdf',  // PDF files
+      'image/jpeg',       // JPEG images
+      'image/png',        // PNG images
+      'image/gif',        // GIF images
+      'image/bmp',        // BMP images
+      'image/webp',       // WebP images
+      'image/tiff',       // TIFF images
+      'image/svg+xml'     // SVG images
+    ];
+
     if (!allowedTypes.includes(billFile.type)) {
       setErrorMessage('Invalid file type. Only PDF files are allowed.');
       return;
     }
 
-    if (billFile.size > 30* 1024 * 1024) { // 1MB
+    if (billFile.size > 30 * 1024 * 1024) { // 1MB
       setErrorMessage('File is too large. Maximum size allowed is 1MB.');
       return;
     }
@@ -48,12 +58,21 @@ function App() {
 
   return (
     <div>
+      <div>
+      <h1>Image from Google Drive</h1>
+      <img src="https://drive.google.com/uc?id=1s8esJjHWDxMKjjHd7LQRmDpHj3IqDRaI"/>
+    </div>
       <h1>Upload Bill</h1>
       {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Upload Bill:</label>
-          <input type="file" accept="application/pdf" onChange={handleFileChange} />
+          <input
+            type="file"
+            accept="application/pdf,image/jpeg,image/png,image/gif,image/bmp,image/webp,image/tiff,image/svg+xml"
+            onChange={handleFileChange}
+          />
+
         </div>
         <button type="submit">Submit</button>
       </form>
